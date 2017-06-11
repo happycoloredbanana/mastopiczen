@@ -1,0 +1,18 @@
+body {
+	background-color: #282c37;
+}
+
+label {
+  color: white;
+}
+
+hr {
+  border-color: black;
+}
+
+img {
+	padding: 5px;
+	margin: 3px;
+	background-color: #393f4f;
+	border: 1px solid black;
+}
