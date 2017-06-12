@@ -12,8 +12,7 @@ module.exports = {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?presets[]=es2015&presets[]=react' },
       { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.(html|eot|svg|ttf|woff|woff2)$/, loader: "file-loader" },
-      { test: /\.html$/, loader: "file-loader?name=[name].[ext]" }
+      { test: /\.(html|eot|svg|ttf|woff|woff2)$/, loader: "file-loader?name=[name].[ext]" }
     ]
   },
 
