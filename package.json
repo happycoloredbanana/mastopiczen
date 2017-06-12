@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline --content-base .",
-    "build": "webpack ./index.js --output-path build"
+    "build": "webpack ./index.js --output-path build",
+    "lint": "eslint index.js modules/"
   },
   "author": "happycoloredbanana",
   "license": "CC0-1.0",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4"
@@ -23,8 +25,11 @@
     "babel-preset-react": "^6.5.0",
     "css-loader": "^0.28.4",
     "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
     "file-loader": "^0.11.2",
     "style-loader": "^0.18.2",
     "webpack": "^1.12.13",

@@ -1,0 +1,19 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+    "env": {
+        "browser": true
+    },
+    "rules": {
+        "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+        "react/no-multi-comp": "off",
+        "jsx-quotes": ["error", "prefer-single"],
+        "no-restricted-syntax": ["off", "ForOfStatement"],
+        "no-continue": "off",
+        "object-shorthand": "off"
+    }
+}
