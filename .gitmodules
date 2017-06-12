@@ -1,3 +1,0 @@
-[submodule "vendor/mastodon.js"]
-	path = vendor/mastodon.js
-	url = git@github.com:happycoloredbanana/mastodon.js.git
