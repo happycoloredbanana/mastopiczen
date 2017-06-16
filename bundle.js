@@ -22539,7 +22539,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-	    _this.state = { instance: '', go: false };
+	    _this.state = { instance: '', go: false, autoscroll: true };
 	    return _this;
 	  }
 
@@ -22558,28 +22558,40 @@
 	      });
 	    }
 	  }, {
+	    key: 'onAutoscrollChange',
+	    value: function onAutoscrollChange(event) {
+	      this.setState({
+	        autoscroll: event.target.checked
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
 	      var instance = this.state.instance;
 	      var go = this.state.go;
+	      var autoscroll = this.state.autoscroll;
 
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(Grid, { instance: instance, go: go, autoscroll: autoscroll }),
+	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(Config, {
 	          instance: instance,
 	          go: go,
+	          autoscroll: autoscroll,
 	          onInstanceChange: function onInstanceChange(e) {
 	            return _this2.onInstanceChange(e);
+	          },
+	          onAutoscrollChange: function onAutoscrollChange(e) {
+	            return _this2.onAutoscrollChange(e);
 	          },
 	          onSubmit: function onSubmit(e) {
 	            return _this2.onSubmit(e);
 	          }
-	        }),
-	        _react2.default.createElement('hr', null),
-	        _react2.default.createElement(Grid, { instance: instance, go: go })
+	        })
 	      );
 	    }
 	  }]);
@@ -22596,6 +22608,7 @@
 	    var _this3 = _possibleConstructorReturn(this, (Config.__proto__ || Object.getPrototypeOf(Config)).call(this, props));
 
 	    _this3.onInstanceChange = props.onInstanceChange;
+	    _this3.onAutoscrollChange = props.onAutoscrollChange;
 	    _this3.onSubmit = props.onSubmit;
 	    return _this3;
 	  }
@@ -22627,6 +22640,20 @@
 	          })
 	        ),
 	        _react2.default.createElement(
+	          _reactBootstrap.FormGroup,
+	          null,
+	          _react2.default.createElement(
+	            _reactBootstrap.Checkbox,
+	            {
+	              checked: this.props.autoscroll,
+	              onChange: function onChange(e) {
+	                return _this4.onAutoscrollChange(e);
+	              }
+	            },
+	            'Autoscroll'
+	          )
+	        ),
+	        _react2.default.createElement(
 	          _reactBootstrap.Button,
 	          { bsStyle: 'primary', type: 'submit' },
 	          ' ',
@@ -22643,7 +22670,9 @@
 	Config.propTypes = {
 	  instance: _propTypes2.default.string.isRequired,
 	  go: _propTypes2.default.bool.isRequired,
+	  autoscroll: _propTypes2.default.bool.isRequired,
 	  onInstanceChange: _propTypes2.default.func.isRequired,
+	  onAutoscrollChange: _propTypes2.default.func.isRequired,
 	  onSubmit: _propTypes2.default.func.isRequired
 	};
 
@@ -22682,7 +22711,7 @@
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
-	      if (this.props.go && typeof this.scrollToTop !== 'undefined') {
+	      if (this.props.go && this.props.autoscroll && typeof this.scrollToTop !== 'undefined') {
 	        this.gridNode.scrollIntoView(this.scrollToTop);
 	      }
 	    }
@@ -22897,7 +22926,8 @@
 
 	Grid.propTypes = {
 	  instance: _propTypes2.default.string.isRequired,
-	  go: _propTypes2.default.bool.isRequired
+	  go: _propTypes2.default.bool.isRequired,
+	  autoscroll: _propTypes2.default.bool.isRequired
 	};
 
 	exports.default = App;
