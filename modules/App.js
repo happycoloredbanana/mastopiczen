@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, FormGroup, ControlLabel, FormControl, Image } from 'react-bootstrap';
+import { Button, FormGroup, ControlLabel, FormControl, Image, Checkbox } from 'react-bootstrap';
 import MastodonAPI from '../vendor/mastodon.js/mastodon';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { instance: '', go: false };
+    this.state = { instance: '', go: false, autoscroll: true };
   }
 
   onSubmit(event) {
@@ -21,20 +21,29 @@ class App extends React.Component {
     });
   }
 
+  onAutoscrollChange(event) {
+    this.setState({
+      autoscroll: event.target.checked,
+    });
+  }
+
   render() {
     const instance = this.state.instance;
     const go = this.state.go;
+    const autoscroll = this.state.autoscroll;
 
     return (
       <div>
+        <Grid instance={instance} go={go} autoscroll={autoscroll} />
+        <hr />
         <Config
           instance={instance}
           go={go}
+          autoscroll={autoscroll}
           onInstanceChange={e => this.onInstanceChange(e)}
+          onAutoscrollChange={e => this.onAutoscrollChange(e)}
           onSubmit={e => this.onSubmit(e)}
         />
-        <hr />
-        <Grid instance={instance} go={go} />
       </div>
     );
   }
@@ -44,6 +53,7 @@ class Config extends React.Component {
   constructor(props) {
     super(props);
     this.onInstanceChange = props.onInstanceChange;
+    this.onAutoscrollChange = props.onAutoscrollChange;
     this.onSubmit = props.onSubmit;
   }
 
@@ -58,6 +68,14 @@ class Config extends React.Component {
             onChange={e => this.onInstanceChange(e)}
           />
         </FormGroup>
+        <FormGroup>
+          <Checkbox
+            checked={this.props.autoscroll}
+            onChange={e => this.onAutoscrollChange(e)}
+          >
+            Autoscroll
+          </Checkbox>
+        </FormGroup>
         <Button bsStyle='primary' type='submit'> {this.props.go ? 'Stop' : 'Go'} </Button>
       </form>
     );
@@ -66,7 +84,9 @@ class Config extends React.Component {
 Config.propTypes = {
   instance: PropTypes.string.isRequired,
   go: PropTypes.bool.isRequired,
+  autoscroll: PropTypes.bool.isRequired,
   onInstanceChange: PropTypes.func.isRequired,
+  onAutoscrollChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
@@ -97,6 +117,7 @@ class Grid extends React.Component {
 
   componentDidUpdate() {
     if (this.props.go &&
+        this.props.autoscroll &&
         typeof this.scrollToTop !== 'undefined') {
       this.gridNode.scrollIntoView(this.scrollToTop);
     }
@@ -248,6 +269,7 @@ class Grid extends React.Component {
 Grid.propTypes = {
   instance: PropTypes.string.isRequired,
   go: PropTypes.bool.isRequired,
+  autoscroll: PropTypes.bool.isRequired,
 };
 
 
